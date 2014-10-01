@@ -18,7 +18,34 @@ public class NoteUtils {
 	public static enum Quality {
 		Major, Minor, Perfect, Augmented, Diminished, Invalid
 	}
-
+	
+	//String constants for ease of use
+	public static final String C = "C";
+	public static final String Cs = "C#";
+	public static final String Db = "Db";
+	public static final String D = "D";
+	public static final String Ds = "D#";
+	public static final String Eb = "Eb";
+	public static final String E = "E";
+	public static final String Es = "E#";
+	public static final String Fb = "Fb";
+	public static final String F = "F";
+	public static final String Fs = "F#";
+	public static final String Gb = "Gb";
+	public static final String G = "G";
+	public static final String Gs = "G#";
+	public static final String Ab = "Ab";
+	public static final String A = "A";
+	public static final String As = "A#";
+	public static final String Bb = "Bb";
+	public static final String B = "B";
+	public static final String Bs = "B#";
+	public static final String Cb = "Cb";
+	
+	public static Quality getRelationship(Note baseNote, Note compareNote) {
+		return getRelationship(baseNote.getNoteName(), compareNote.getNoteName());
+	}
+	
 	/**
 	 * Gets the quality relationship between the two notes with respect to the
 	 * first note
