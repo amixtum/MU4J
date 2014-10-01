@@ -11,8 +11,127 @@ public class NoteUtils {
 	public static final int INVALID_STRING = Integer.MAX_VALUE;
 
 	// frequency constants
-	private static final double HalfStepCo = Math.pow(2, -12);
+	private static final double HalfStepCo = Math.pow(2, 1 / 12);
 	private static final double CFreq = 440.00 * Math.pow(HalfStepCo, 3);
+
+	// Note quality enumerations
+	public static enum Quality {
+		Major, Minor, Perfect, Augmented, Diminished, Invalid
+	}
+
+	/**
+	 * Gets the quality relationship between the two notes with respect to the
+	 * first note
+	 * 
+	 * @param baseNote
+	 *            The note used as the starting point
+	 * @param compareNote
+	 *            The note to compare to
+	 * @return The quality of the relationship
+	 */
+	public static Quality getRelationship(String baseNote, String compareNote) {
+		int baseInt = noteStringToInt(baseNote);
+		int compareInt = noteStringToInt(compareNote);
+
+		switch (compareInt - baseInt) {
+		case 0:
+			return Quality.Perfect;
+		case -1:
+		case 1:
+			return Quality.Minor;
+		case -2:
+		case 2:
+			return Quality.Major;
+		case -3:
+		case 3:
+			return Quality.Minor;
+		case -4:
+		case 4:
+			return Quality.Major;
+		case -5:
+		case 5:
+			return Quality.Perfect;
+		case -6:
+		case 6:
+			return Quality.Diminished;
+		case -7:
+		case 7:
+			return Quality.Perfect;
+		case -8:
+		case 8:
+			return Quality.Minor;
+		case -9:
+		case 9:
+			return Quality.Major;
+		case -10:
+		case 10:
+			return Quality.Minor;
+		case -11:
+		case 11:
+			return Quality.Major;
+		case -12:
+		case 12:
+			return Quality.Perfect;
+		default:
+			return Quality.Invalid;
+		}
+	}
+
+	/**
+	 * Gets the quality relationship between the two specified notes with
+	 * respect to the the first note
+	 * 
+	 * @param baseInt
+	 *            The base note. Must be a value in [0 , 12]
+	 * @param compareInt
+	 *            The note to compare to the base note. Must be a value in [0 ,
+	 *            12]
+	 * @return The quality of the relationship between the notes
+	 */
+	public static Quality getRelationship(int baseInt, int compareInt) {
+		switch (compareInt - baseInt) {
+		case 0:
+			return Quality.Perfect;
+		case -1:
+		case 1:
+			return Quality.Minor;
+		case -2:
+		case 2:
+			return Quality.Major;
+		case -3:
+		case 3:
+			return Quality.Minor;
+		case -4:
+		case 4:
+			return Quality.Major;
+		case -5:
+		case 5:
+			return Quality.Perfect;
+		case -6:
+		case 6:
+			return Quality.Diminished;
+		case -7:
+		case 7:
+			return Quality.Perfect;
+		case -8:
+		case 8:
+			return Quality.Minor;
+		case -9:
+		case 9:
+			return Quality.Major;
+		case -10:
+		case 10:
+			return Quality.Minor;
+		case -11:
+		case 11:
+			return Quality.Major;
+		case -12:
+		case 12:
+			return Quality.Perfect;
+		default:
+			return Quality.Invalid;
+		}
+	}
 
 	/**
 	 * Takes a String in the form of a captial letter and either '#' or 'b' for
@@ -88,5 +207,33 @@ public class NoteUtils {
 		int coPow = ((octave - 5) * 12) + intNote;
 
 		return CFreq * (Math.pow(HalfStepCo, coPow));
+	}
+
+	/**
+	 * Gets the frequency of specified note
+	 * 
+	 * @param intNote
+	 *            The integer code for the note. C is 0 and increments by one
+	 *            for each half step up to B# which is 12
+	 * @param octave
+	 *            The octave of the note. E.g. intNote = 0 and octave = 5 would
+	 *            give C5
+	 * @return The frequency of the note specified by the parameters
+	 */
+	public static double getFrequency(int intNote, int octave) {
+		int coPow = ((octave - 5) * 12) + intNote;
+
+		return CFreq * (Math.pow(HalfStepCo, coPow));
+	}
+
+	/**
+	 * Gets the frequency of the specified note
+	 * 
+	 * @param halfStepsFromC5
+	 *            The number of half steps from C5
+	 * @return The frequency of the note specified by the parameters
+	 */
+	public static double getFrequency(int halfStepsFromC5) {
+		return CFreq * (Math.pow(HalfStepCo, halfStepsFromC5));
 	}
 }
