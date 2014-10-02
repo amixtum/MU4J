@@ -78,7 +78,7 @@ public class NoteSequence {
 			return duration;
 		}
 		public long toNanoseconds() {
-			return (long)((BPM / 60.00) / 0.000000001) * (duration / 32);
+			return (long)(((BPM / 60.00) / 0.000000001) * ((double)duration / 32.00));
 		}
 	}
 }
